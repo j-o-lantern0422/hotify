@@ -5,15 +5,29 @@ module Hotify
       Hotify::Role.new.dump_role
     end
 
-    desc "yaml", "yaml output"
-    def pry
+    desc "dump [Path]", "yaml output"
+    method_options path: :string
+    def dump(path) 
+      if path.nil?
+        path = "#{Dir.pwd}/roles_users.yml"
+      end
       role = Hotify::Role.new
-      role.role_in_user.each do | role_name, users |
-        puts "#{role_name}:"
+
+      YAML.dump(role_in_user_dump(role.role_in_user), File.open(path, "w"))
+    end
+
+
+    private
+    
+    def role_in_user_dump(role_in_user)
+      dump = Hash.new { |h,k| h[k] = [] }
+      role_in_user.each do | role_name, users |
         users.each do | user |
-          puts " - #{user.username}"
+          dump[role_name].push(user.email)
         end
       end
+
+      dump
     end
   end
 end
