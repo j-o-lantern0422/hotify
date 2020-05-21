@@ -9,7 +9,7 @@ if ENV["ENV"] == "development"
   require "dotenv"
   require "byebug"
   require "pry"
-  Dotenv.load
+  Dotenv.load(".development.env")
 end
 
 module Hotify
