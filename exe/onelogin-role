@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-
-require "onelogin/role"
-
-Onelogin::Role::Cli.start

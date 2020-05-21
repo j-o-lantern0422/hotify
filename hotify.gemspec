@@ -1,8 +1,8 @@
-require_relative 'lib/onelogin/role/version'
+require_relative 'lib/hotify/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "onelogin-role"
-  spec.version       = Onelogin::Role::VERSION
+  spec.name          = "hotify"
+  spec.version       = Hotify::VERSION
   spec.authors       = ["nishihata"]
   spec.email         = ["nishihata@pepabo.com"]
 
