@@ -18,6 +18,7 @@ module Hotify
 
 
     private
+    
     def role_in_user_dump(role_in_user)
       dump = Hash.new { |h,k| h[k] = [] }
       role_in_user.each do | role_name, users |
