@@ -59,5 +59,22 @@ module Hotify
 
       role_user
     end
+
+    def add_role(user, role)
+      @client.assign_role_to_user(user.id, [role.id])
+    end
+
+    def leave_role(user, role)
+      @client.remove_role_from_user(user.id, [role.id])
+    end
+
+    def find_by_name(name)
+      name = "?name=#{name}"
+      @client.get_role(name)
+    end
+
+    def find_by(id)
+      @client.get_role(id)
+    end
   end
 end

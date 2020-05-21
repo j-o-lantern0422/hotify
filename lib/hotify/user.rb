@@ -16,10 +16,6 @@ module Hotify
     end
 
     def all_users
-      if ENV["ENV"] == "development"
-        return  [Hotify::Users.find_by(email: "test@pepabo.com"),Hotify::Users.find_by(email: "test2@pepabo.com") ]
-      end
-
       @client.get_users
     end
 
