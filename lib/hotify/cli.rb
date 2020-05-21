@@ -20,10 +20,17 @@ module Hotify
     desc "apply [Path]", "apply user and role"
     method_options path: :string
     def apply(path)
-      role_file = YAML.load_file(path)
+      add_role_by_yaml(path)
+      remove_role_by_yaml(path)
+    end
+
+
+    private
+
+    def add_role_by_yaml(file_path)
+      role_file = YAML.load_file(file_path)
       hotify_role = Hotify::Role.new
 
-      #check and add in yaml but not joined role
       role_file.each do | role_name, user_emails |
         user_emails.each do | user_email |
           user = Hotify::Users.find_by(email: user_email)
@@ -38,7 +45,11 @@ module Hotify
           end
         end
       end
+    end
 
+    def remove_role_by_yaml(file_path)
+      role_file = YAML.load_file(file_path)
+      hotify_role = Hotify::Role.new
       onelogin_roles = hotify_role.role_in_user
       onelogin_roles.each do | role_name, users |
         users.each do | user |
@@ -54,9 +65,6 @@ module Hotify
         end
       end
     end
-
-
-    private
 
     def role_in_user_dump(role_in_user)
       dump = Hash.new { |h,k| h[k] = [] }
