@@ -16,21 +16,19 @@ module Hotify
       YAML.dump(role_in_user_dump(role.role_in_user), File.open(path, "w"))
     end
 
-
     desc "apply [Path]", "apply user and role"
     method_options path: :string
     def apply(path)
-      add_role_by_yaml(path)
-      remove_role_by_yaml(path)
+      role_file = YAML.load_file(path)
+      add_role_by_yaml(role_file)
+      remove_role_by_yaml(role_file)
     end
-
 
     private
 
-    def add_role_by_yaml(file_path)
-      role_file = YAML.load_file(file_path)
+    def add_role_by_yaml(hotify_role_users_hash)
       hotify_role = Hotify::Role.new
-      role_file.each do | role_name, user_emails |
+      hotify_role_users_hash.each do | role_name, user_emails |
         user_emails.each do | user_email |
           user = Hotify::Users.find_by(email: user_email)
           user_role_names = hotify_role.roles_from(user: user).map{|user_role| user_role.name}
@@ -41,13 +39,12 @@ module Hotify
       end
     end
 
-    def remove_role_by_yaml(file_path)
-      role_file = YAML.load_file(file_path)
+    def remove_role_by_yaml(hotify_role_users_hash)
       hotify_role = Hotify::Role.new
       onelogin_roles = hotify_role.role_in_user
       onelogin_roles.each do | role_name, users |
         users.each do | user |
-          unless role_file[role_name].include?(user.email)
+          unless hotify_role_users_hash[role_name].include?(user.email)
             remove!(user, role_name)
           end
         end
@@ -76,5 +73,6 @@ module Hotify
 
       dump
     end
+
   end
 end
