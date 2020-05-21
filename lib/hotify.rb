@@ -19,12 +19,8 @@ module Hotify
       @client = Hotify::Auth.new.client
     end
 
-    def all_role
-      @client.get_roles.to_a
-    end
-
     def dump_role
-      all_role.each{ |role| p role }
+      @client.get_roles.to_a.each{ |role| p role }
     end
 
     def roles_from(user: )
@@ -45,11 +41,11 @@ module Hotify
 
     def role_in_user
       all_users_and_roles = dump_all_users_and_roles
-      all_roles = all_role
+      all_roles = @client.get_roles.to_a
       role_user = Hash.new { |h,k| h[k] = [] }
 
 
-      all_role.each do | role |
+      all_roles.each do | role |
         all_users_and_roles.each do | user_and_roles |
           user_and_roles[:roles].each do | role |
             role_user[role.name].push(user_and_roles[:user])
