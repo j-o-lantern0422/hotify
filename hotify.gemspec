@@ -3,20 +3,20 @@ require_relative 'lib/hotify/version'
 Gem::Specification.new do |spec|
   spec.name          = "hotify"
   spec.version       = Hotify::VERSION
-  spec.authors       = ["nishihata"]
-  spec.email         = ["nishihata@pepabo.com"]
+  spec.authors       = ["j-o-lantern0422"]
+  spec.email         = ["j.o.lantern0422@gmail.com"]
 
-  spec.summary       = %q{OneloginのRole割り当てをyamlで管理するくん}
-  spec.description   = %q{Webコンソール開いてあれこれするん大変なので、role割り当てをyamlで管理したい}
-  spec.homepage      = "https://github.com"
+  spec.summary       = %q{Onelogin role and users mange with yaml}
+  spec.description   = %q{Onelogin role manage, example user add, or remove from role command}
+  spec.homepage      = "https://github.com/j-o-lantern0422/hotify"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
 
   spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com"
-  spec.metadata["changelog_uri"] = "https://github.com"
+  spec.metadata["source_code_uri"] = "https://github.com/j-o-lantern0422/hotify"
+  spec.metadata["changelog_uri"] = "https://github.com/j-o-lantern0422/hotify"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
