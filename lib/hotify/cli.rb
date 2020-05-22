@@ -1,5 +1,7 @@
 module Hotify
   class Cli < Thor
+    class_option :dry_run, :type => :boolean, :default => false
+
     desc "dump", "onelogin-role"
     def dump
       Hotify::Role.new.dump_role
@@ -31,7 +33,7 @@ module Hotify
       hotify_role_users_hash.each do | role_name, user_emails |
         user_emails.each do | user_email |
           user = Hotify::Users.find_by(email: user_email)
-          onelogin_user_role_names = hotify_role.roles_from(user: user).map{ | user_role | user_role.name　}
+          onelogin_user_role_names = hotify_role.roles_from(user: user).map{ | user_role | user_role.name }
           unless onelogin_user_role_names.include?(role_name)
             add!(user, role_name)
           end
@@ -53,14 +55,22 @@ module Hotify
 
     def add!(user, role_name)
       hotify_role = Hotify::Role.new
-      hotify_role.add_role(user, hotify_role.find_by_name(role_name))
-      puts "#{user.email} added to #{role_name}"
+      if options[:dry_run]
+        puts "#{user.email} will add to #{role_name}"
+      else
+        hotify_role.add_role(user, hotify_role.find_by_name(role_name))
+        puts "#{user.email} added to #{role_name}"
+      end
     end
 
     def remove!(user, role_name)
       hotify_role = Hotify::Role.new
-      hotify_role.leave_role(user, hotify_role.find_by_name(role_name))
-      puts "#{user.email} removed by #{role_name}"
+      if options[:dry_run]
+        puts "#{user.email} will remove by #{role_name}"
+      else
+        hotify_role.leave_role(user, hotify_role.find_by_name(role_name))
+        puts "#{user.email} removed by #{role_name}"
+      end
     end
 
     def role_in_user_dump(role_in_user)
