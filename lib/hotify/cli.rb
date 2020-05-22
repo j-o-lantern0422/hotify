@@ -31,8 +31,8 @@ module Hotify
       hotify_role_users_hash.each do | role_name, user_emails |
         user_emails.each do | user_email |
           user = Hotify::Users.find_by(email: user_email)
-          user_role_names = hotify_role.roles_from(user: user).map{|user_role| user_role.name}
-          unless user_role_names.include?(role_name)
+          onelogin_user_role_names = hotify_role.roles_from(user: user).map{ | user_role | user_role.name　}
+          unless onelogin_user_role_names.include?(role_name)
             add!(user, role_name)
           end
         end
@@ -42,10 +42,10 @@ module Hotify
     def remove_role_by_yaml(hotify_role_users_hash)
       hotify_role = Hotify::Role.new
       onelogin_roles = hotify_role.role_in_user
-      onelogin_roles.each do | role_name, users |
-        users.each do | user |
-          unless hotify_role_users_hash[role_name].include?(user.email)
-            remove!(user, role_name)
+      onelogin_roles.each do | onelogin_role_name, onelogin_users |
+        onelogin_users.each do | user |
+          unless hotify_role_users_hash[onelogin_role_name].include?(user.email)
+            remove!(user, onelogin_role_name)
           end
         end
       end
