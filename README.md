@@ -18,6 +18,13 @@ gem install hotify
 
 ## Usage
 
+Reading onelogin credentials from environment variables. So set the environment variable by using the command below.
+
+```sh
+export ONELOGIN_ID=hoge
+export ONELOGIN_SECRET=foo
+```
+
 ### Dump role and users
 
 ```sh
