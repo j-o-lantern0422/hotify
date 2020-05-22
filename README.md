@@ -1,28 +1,46 @@
-# Onelogin::Role
+# hotify
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/onelogin/role`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Onelogin role management with yaml tool.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'onelogin-role'
+gem 'hotify'
 ```
 
-And then execute:
+or install 
 
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install onelogin-role
+```sh
+gem install hotify
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+### Dump role and users
+
+```sh
+hotify dump
+```
+
+or
+
+```sh
+hotify dump ~/role_and_users.yml
+```
+
+### Apply role and users
+
+```sh
+hotify apply role_and_users.yml
+```
+
+If you want to execute dry-run
+
+```sh
+hotify apply role_and_users.yml --dry-run
+```
 
 ## Development
 
@@ -32,7 +50,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/onelogin-role.
+Bug reports and pull requests are welcome on GitHub at https://github.com/j-o-lantern0422/hotify
 
 
 ## License
