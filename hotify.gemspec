@@ -26,4 +26,9 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+  spec.add_development_dependency "byebug", "~> 11.1.3"
+  spec.add_development_dependency "pry", "~> 0.13.1"
+  spec.add_development_dependency "dotenv", "~> 2.7.5" 
+  spec.add_dependency "onelogin", "~> 1.5.0"
+  spec.add_dependency "thor", "~> 1.0.1"
 end

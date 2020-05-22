@@ -2,6 +2,8 @@ PATH
   remote: .
   specs:
     hotify (0.1.0)
+      onelogin (~> 1.5.0)
+      thor (~> 1.0.1)
 
 GEM
   remote: https://rubygems.org/
