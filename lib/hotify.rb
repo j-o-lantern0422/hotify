@@ -19,6 +19,10 @@ module Hotify
       client.get_roles.to_a.each{ |role| p role }
     end
 
+    def all_roles
+      @_all_roles ||= client.get_roles.to_a
+    end
+
     def roles_from(user: )
       role_ids = client.get_user_roles(user.id)
       role_ids.map do | role_id |
@@ -26,25 +30,33 @@ module Hotify
       end
     end
 
-    def dump_all_users_and_roles
-      users = Hotify::Users.new
-      all_users_and_roles = users.all_users.map do | user |
-        { user: user, roles: roles_from(user: user) }
-      end
+    def role_ids_from(user: )
+      client.get_user_roles(user.id)
+    end
 
-      all_users_and_roles
+    def users
+      @_users ||= Hotify::Users.new
+    end
+
+    def all_users
+      @_all_users ||= users.all_users
+    end
+
+    def all_users_and_roles
+      @_all_users_and_roles ||= all_users.map do | user |
+        { user: user, role_ids: role_ids_from(user: user) }
+      end
     end
 
     def role_in_user
-      all_users_and_roles = dump_all_users_and_roles
-      all_roles = client.get_roles.to_a
       role_user = Hash.new { |h,k| h[k] = [] }
 
-
       all_roles.each do | role |
-        all_users_and_roles.each do | user_and_roles |
-          user_and_roles[:roles].each do | role |
-            role_user[role.name].push(user_and_roles[:user])
+        all_users_and_roles.each do | user_and_role_ids |
+          user_and_role_ids[:role_ids].each do | role_id |
+            if role.id == role_id
+              role_user[role.name].push(user_and_role_ids[:user])
+            end
           end
         end
       end
