@@ -26,20 +26,23 @@ module Hotify
       end
     end
 
-    def dump_all_users_and_roles
-      users = Hotify::Users.new
-      all_users_and_roles = users.all_users.map do | user |
+    def users
+      @_users ||= Hotify::Users.new
+    end
+
+    def all_users
+      @_all_users ||= users.all_users
+    end
+
+    def all_users_and_roles
+      @_all_users_and_roles ||= all_users.map do | user |
         { user: user, roles: roles_from(user: user) }
       end
-
-      all_users_and_roles
     end
 
     def role_in_user
-      all_users_and_roles = dump_all_users_and_roles
       all_roles = client.get_roles.to_a
       role_user = Hash.new { |h,k| h[k] = [] }
-
 
       all_roles.each do | role |
         all_users_and_roles.each do | user_and_roles |
