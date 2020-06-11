@@ -28,13 +28,30 @@ module Hotify
 
     private
 
+    def hotify_role
+      @_hotify_role ||= Hotify::Role.new
+    end
+
+    def role_id_names
+      @_role_id_names ||= hotify_role.all_roles.map{ | role | { id: role.id, name: role.name} }
+    end
+
+    def role_id_by(name)
+      role_id_names.each do | role_id_name |
+        return role_id_name[:id] if role_id_name[:name] == name
+      end
+
+      nil
+    end
+
     def add_role_by_yaml(hotify_role_users_hash)
       hotify_role = Hotify::Role.new
       hotify_role_users_hash.each do | role_name, user_emails |
+        role_id = role_id_by(role_name)
         user_emails.each do | user_email |
           user = Hotify::Users.find_by(email: user_email)
-          onelogin_user_role_names = hotify_role.roles_from(user: user).map{ | user_role | user_role.name }
-          unless onelogin_user_role_names.include?(role_name)
+          onelogin_user_role_ids = hotify_role.role_ids_from(user: user)
+          unless onelogin_user_role_ids.include?(role_id)
             add!(user, role_name)
           end
         end
