@@ -15,18 +15,14 @@ end
 module Hotify
   class Error < StandardError; end
   class Role
-    def initialize
-      @client = Hotify::Auth.new.client
-    end
-
     def dump_role
-      @client.get_roles.to_a.each{ |role| p role }
+      client.get_roles.to_a.each{ |role| p role }
     end
 
     def roles_from(user: )
-      role_ids = @client.get_user_roles(user.id)
+      role_ids = client.get_user_roles(user.id)
       role_ids.map do | role_id |
-        @client.get_role(role_id)
+        client.get_role(role_id)
       end
     end
 
@@ -41,7 +37,7 @@ module Hotify
 
     def role_in_user
       all_users_and_roles = dump_all_users_and_roles
-      all_roles = @client.get_roles.to_a
+      all_roles = client.get_roles.to_a
       role_user = Hash.new { |h,k| h[k] = [] }
 
 
@@ -61,20 +57,26 @@ module Hotify
     end
 
     def add_role(user, role)
-      @client.assign_role_to_user(user.id, [role.id])
+      client.assign_role_to_user(user.id, [role.id])
     end
 
     def leave_role(user, role)
-      @client.remove_role_from_user(user.id, [role.id])
+      client.remove_role_from_user(user.id, [role.id])
     end
 
     def find_by_name(name)
       name = "?name=#{name}"
-      @client.get_role(name)
+      client.get_role(name)
     end
 
     def find_by(id)
-      @client.get_role(id)
+      client.get_role(id)
+    end
+
+    private
+
+    def client
+      @_client ||= Hotify::Auth.new.client
     end
   end
 end

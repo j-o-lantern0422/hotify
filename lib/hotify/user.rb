@@ -1,9 +1,5 @@
 module Hotify
   class Users
-    def initialize
-      @client = Hotify::Auth.new.client
-    end
-
     def self.find_by(email:)
       users = user_filter_by(email: email) 
       if users.size > 1
@@ -16,7 +12,7 @@ module Hotify
     end
 
     def all_users
-      @client.get_users
+      client.get_users
     end
 
     private
@@ -29,6 +25,10 @@ module Hotify
       users = users_filtered.map{ |user| user }
   
       users
+    end
+
+    def client
+      @_client ||= Hotify::Auth.new.client
     end
   end
 end
