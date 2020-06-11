@@ -82,7 +82,8 @@ module Hotify
         else
           role_ids = role_names.map{ |role_name| role_id_by(role_name) }
           hotify_role.add_role(user_email, role_ids)
-          puts "#{user_email} added to #{role_name}"
+          puts "#{user_email} added to:"
+          role_names.each { | role_name | puts role_name }
         end
       end
     end
@@ -95,7 +96,8 @@ module Hotify
         else
           role_ids = role_names.map{ |role_name| role_id_by(role_name) }
           hotify_role.leave_role(user_email, role_ids)
-          puts "#{user_email} removed by #{role_name}"
+          puts "#{user_email} removed by:"
+          role_names.each { | role_name | puts role_name }
         end
       end
     end
