@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "dotenv", "~> 2.7.5" 
   spec.add_dependency "onelogin", "~> 1.5.0"
   spec.add_dependency "thor", "~> 1.0.1"
+  spec.add_dependency "parallel", "~> 1.19.1"
 end
