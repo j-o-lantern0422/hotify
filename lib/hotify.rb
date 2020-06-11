@@ -1,5 +1,6 @@
 require "onelogin"
 require "thor"
+require "parallel"
 require "hotify/version"
 require "hotify/cli"
 require "hotify/auth"
@@ -68,12 +69,14 @@ module Hotify
       role_user
     end
 
-    def add_role(user, role)
-      client.assign_role_to_user(user.id, [role.id])
+    def add_role(user_email, role_ids)
+      user = Hotify::Users.find_by(email: user_email)
+      client.assign_role_to_user(user.id, role_ids)
     end
 
-    def leave_role(user, role)
-      client.remove_role_from_user(user.id, [role.id])
+    def leave_role(user_email, role_ids)
+      user = Hotify::Users.find_by(email: user_email)
+      client.remove_role_from_user(user.id, role_ids)
     end
 
     def find_by_name(name)

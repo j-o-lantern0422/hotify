@@ -14,3 +14,4 @@ end
 
 gem "onelogin"
 gem "thor"
+gem "parallel"
