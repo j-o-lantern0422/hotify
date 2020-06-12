@@ -3,9 +3,9 @@ module Hotify
     def self.find_by(email:)
       users = user_filter_by(email: email) 
       if users.size > 1
-        raise("Found Multiple User Entry")
+        raise("#{email}: Found Multiple User Entry")
       elsif users.empty?
-        raise("User Not Found")
+        raise("#{email}: User Not Found")
       end
 
       users.first
