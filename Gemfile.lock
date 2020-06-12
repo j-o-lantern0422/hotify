@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hotify (0.1.3)
+    hotify (0.1.4)
       onelogin (~> 1.5.0)
       parallel (~> 1.19.1)
       thor (~> 1.0.1)
