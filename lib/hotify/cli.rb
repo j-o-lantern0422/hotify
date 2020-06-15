@@ -51,6 +51,7 @@ module Hotify
     def add_role_by_yaml(hotify_role_users_hash)
       users_and_roles_will_add = Hash.new { |h,k| h[k] = [] }
       hotify_role_users_hash.each do | hotify_role_name, hotify_user_emails |
+        next if hotify_user_emails.nil?
         hotify_user_emails.each do | hotify_user_email |
           unless onelogin_role_in_user[hotify_role_name].include?(hotify_user_email)
             users_and_roles_will_add[hotify_user_email].push(hotify_role_name)
@@ -64,6 +65,7 @@ module Hotify
     def remove_role_by_yaml(hotify_role_users_hash)
       users_and_roles_will_remove = Hash.new { |h,k| h[k] = [] }
       hotify_role_users_hash.each do | hotify_role_name, hotify_user_emails |
+        next if hotify_user_emails.nil?
         onelogin_role_in_user[hotify_role_name].each do | onelogin_user_email |
           unless hotify_user_emails.include?(onelogin_user_email)
             users_and_roles_will_remove[onelogin_user_email].push(hotify_role_name)
