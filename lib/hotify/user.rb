@@ -12,7 +12,7 @@ module Hotify
     end
 
     def all_users
-      @_all_users = client.get_users
+      @_all_users ||= client.get_users
 
       @_all_users
     end
