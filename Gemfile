@@ -12,6 +12,7 @@ group :development do
   gem "dotenv"
 end
 
-gem "onelogin"
+gem "onelogin", git: 'git@github.com:onelogin/onelogin-ruby-sdk.git' , ref: "35ee99f"
+
 gem "thor"
 gem "parallel"

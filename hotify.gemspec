@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "byebug", "~> 11.1.3"
   spec.add_development_dependency "pry", "~> 0.13.1"
   spec.add_development_dependency "dotenv", "~> 2.7.5" 
-  spec.add_dependency "onelogin", "~> 1.5.0"
+  spec.add_dependency "onelogin", "~> 1.6.0"
   spec.add_dependency "thor", "~> 1.0.1"
   spec.add_dependency "parallel", "~> 1.19.1"
 end
