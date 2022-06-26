@@ -1,5 +1,8 @@
 # hotify
 
+Since I no longer use OneLogin, I have no motivation to develop.
+If you need additional features or bug fixes, fork and develop.
+
 Onelogin role management with yaml tool.
 
 ## Installation
