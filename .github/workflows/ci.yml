@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  [ push ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: ruby:3.1.1
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache bundle gems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-${{ env.cache-name }}-
+            ${{ runner.os }}-gem-
+            ${{ runner.os }}-
+      - name: Install Bundler
+        run: gem install bundler --no-document -v $(grep "BUNDLED WITH" -1 Gemfile.lock | tail -n 1)
+      - name: Bundle install
+        run: bundle install --path=vendor/bundle --jobs 4 --retry 3
+      - name: Run rspec
+        run: bundle exec rspec
+
+
